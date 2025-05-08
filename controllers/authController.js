@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const login = async (req, res) => {
-    const { email, contrasena } = req.body;
+    const { email, password } = req.body;
 
     try {
         // 1. Buscar al Usuario por Email
@@ -15,7 +15,7 @@ const login = async (req, res) => {
         }
 
         // 2. Verificar la Contraseña
-        const validPassword = await bcrypt.compare(contrasena, user[0].contrasena);
+        const validPassword = await bcrypt.compare(password, user[0].contrasena);
 
         if (!validPassword) {
             return res.status(401).json({ message: 'Credenciales inválidas' });
